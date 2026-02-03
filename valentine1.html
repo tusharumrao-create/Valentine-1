@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sonali ❤️</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(180deg, #ff4e8d, #ff9a9e);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* SMOOTH SCROLL */
+html {
+  scroll-behavior: smooth;
+}
+
+/* SECTION BASE */
+section {
+  min-height: 100vh;
+  padding: 60px 20px;
+}
+
+/* HERO */
+#hero h1 {
+  font-size: 3.5em;
+  animation: fadeDown 1.5s ease;
+}
+
+#hero h2 {
+  font-weight: normal;
+  animation: fadeUp 1.5s ease;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* GALLERY */
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.gallery img {
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* SCROLL BUTTON */
+.scroll-btn {
+  margin-top: 50px;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  background: white;
+}
+
+/* GAME SECTION */
+#game {
+  background: linear-gradient(180deg, #ff9a9e, #fad0c4);
+}
+
+.question {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+}
+
+#gameArea {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
+button.gameBtn {
+  padding: 18px 40px;
+  font-size: 1.3em;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: absolute;
+}
+
+#yesBtn {
+  background: #2ecc71;
+  left: 35%;
+  top: 150px;
+}
+
+#noBtn {
+  background: #e74c3c;
+  left: 55%;
+  top: 150px;
+  transition: all 0.2s ease;
+}
+
+#triesBox {
+  margin-top: 20px;
+  font-size: 1.3em;
+}
+
+/* FINAL PAGE */
+#final {
+  background: linear-gradient(180deg, #fad0c4, #ff758c);
+}
+
+#final h1 {
+  font-size: 3em;
+  animation: fadeUp 2s ease;
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 24px;
+  animation: rise 6s linear infinite;
+}
+
+@keyframes rise {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body onclick="startMusic()">
+
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<section id="hero">
+  <h1>My Goddess Sonali 👑</h1>
+  <h2>aka my Riya 💕</h2>
+
+  <div class="gallery">
+    <img src="image1.jpeg">
+    <img src="image2.jpeg">
+    <img src="image3.jpeg">
+  </div>
+
+  <button class="scroll-btn" onclick="location.href='#game'">
+    Scroll Down 😌
+  </button>
+</section>
+
+<!-- PAGE 2 -->
+<section id="game">
+  <div class="question">
+    Riya, will you be my Valentine? 💖
+  </div>
+
+  <div id="gameArea">
+    <button id="yesBtn" class="gameBtn" onclick="winGame()">YES 😍</button>
+    <button id="noBtn" class="gameBtn" onmouseenter="runAway()">NO 🙄</button>
+  </div>
+
+  <div id="triesBox">
+    NO attempts: <span id="tries">0</span> 😂
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section id="final">
+  <h1 id="finalMsg" style="display:none;">
+    I knew it Riya 😌❤️<br>
+    You are stuck with me forever 💍
+  </h1>
+</section>
+
+<script>
+let tries = 0;
+let musicStarted = false;
+
+function runAway() {
+  const noBtn = document.getElementById("noBtn");
+  const area = document.getElementById("gameArea");
+
+  const maxX = area.clientWidth - noBtn.offsetWidth;
+  const maxY = area.clientHeight - noBtn.offsetHeight;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+
+  tries++;
+  document.getElementById("tries").innerText = tries;
+}
+
+function winGame() {
+  document.getElementById("finalMsg").style.display = "block";
+  location.href = "#final";
+  startHearts();
+}
+
+function startMusic() {
+  if (!musicStarted) {
+    document.getElementById("music").play();
+    musicStarted = true;
+  }
+}
+
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
